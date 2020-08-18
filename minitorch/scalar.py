@@ -27,6 +27,7 @@ def central_difference(f, *vals, arg=0, epsilon=1e-6):
     Returns:
        float : An approximation of :math:`f'_i(x_1, \ldots, x_n)`
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -57,28 +58,36 @@ class Scalar(Variable):
         return Mul.apply(self, Inv.apply(b))
 
     def __add__(self, b):
+        # TODO: Implement.
         raise NotImplementedError
 
     def __lt__(self, b):
         ""
+        # TODO: Implement.
         raise NotImplementedError
 
     def __gt__(self, b):
+        # TODO: Implement.
         raise NotImplementedError
 
     def __sub__(self, b):
+        # TODO: Implement.
         raise NotImplementedError
 
     def __neg__(self):
+        # TODO: Implement.
         raise NotImplementedError
 
     def log(self):
+        # TODO: Implement.
         raise NotImplementedError
 
     def sigmoid(self):
+        # TODO: Implement.
         raise NotImplementedError
 
     def relu(self):
+        # TODO: Implement.
         raise NotImplementedError
 
     def get_data(self):
@@ -165,60 +174,72 @@ class LT(ScalarFunction):
 class Mul(ScalarFunction):
     @staticmethod
     def forward(ctx, a, b):
+        # TODO: Implement.
         raise NotImplementedError
 
     @staticmethod
     def backward(ctx, d_output):
+        # TODO: Implement.
         raise NotImplementedError
 
 
 class Inv(ScalarFunction):
     @staticmethod
     def forward(ctx, a):
+        # TODO: Implement.
         raise NotImplementedError
 
     @staticmethod
     def backward(ctx, d_output):
+        # TODO: Implement.
         raise NotImplementedError
 
 
 class Neg(ScalarFunction):
     @staticmethod
     def forward(ctx, a):
+        # TODO: Implement.
         raise NotImplementedError
 
     @staticmethod
     def backward(ctx, d_output):
+        # TODO: Implement.
         raise NotImplementedError
 
 
 class Sigmoid(ScalarFunction):
     @staticmethod
     def forward(ctx, a):
+        # TODO: Implement.
         raise NotImplementedError
 
     @staticmethod
     def backward(ctx, d_output):
+        # TODO: Implement.
         raise NotImplementedError
 
 
 class ReLU(ScalarFunction):
     @staticmethod
     def forward(ctx, a):
+        # TODO: Implement.
         raise NotImplementedError
 
     @staticmethod
     def backward(ctx, d_output):
+        # TODO: Implement.
         raise NotImplementedError
 
 
 class Exp(ScalarFunction):
     @staticmethod
     def forward(ctx, a):
+        # TODO: Implement.
         raise NotImplementedError
 
     @staticmethod
     def backward(ctx, d_output):
+        # TODO: Implement.
         raise NotImplementedError
 
 
