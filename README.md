@@ -1,5 +1,9 @@
-# MiniTorch - Module 1
+# Minit Torch Module 1
 
-https://minitorch.github.io/module1.html
+* Docs: https://minitorch.github.io/
+
+* Overview: https://minitorch.github.io/module1.html
+
+* Tests:
 
 > python run_tests.py

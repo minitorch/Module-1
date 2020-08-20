@@ -179,8 +179,8 @@ class FunctionBase:
             for each :class:`Variable` object in input (other inputs should be ignored)
 
         """
-        # TODO: Implement.
-        raise NotImplementedError
+        # TODO: Implement for Task 1.3.
+        raise NotImplementedError('Need to implement for Task 1.3')
 
 
 def is_leaf(val):
@@ -198,5 +198,5 @@ def backpropagate(final_variable_with_deriv):
        final_variable_with_deriv (:class:`VariableWithDeriv`): The final value
            and its derivative that we want to propagate backward to the leaves.
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 1.4.
+    raise NotImplementedError('Need to implement for Task 1.4')
