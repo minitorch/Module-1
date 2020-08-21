@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import random
 import datasets
 
-PTS = 250
-DATASET = datasets.Xor(PTS)
-HIDDEN = 10
+PTS = 50
+DATASET = datasets.Simple(PTS, vis=True)
+HIDDEN = 2
 RATE = 0.5
 
 
@@ -63,10 +63,9 @@ for epoch in range(500):
     for i in range(data.N):
         x_1, x_2 = data.X[i]
         y = data.y[i]
-        x_1 = minitorch.Scalar(x_1, name="x1")
-        x_2 = minitorch.Scalar(x_2, name="x2")
+        x_1 = minitorch.Scalar(x_1)
+        x_2 = minitorch.Scalar(x_2)
         out = model.forward((x_1, x_2))
-        out.name = "out"
 
         if y == 1:
             prob = out
@@ -75,7 +74,6 @@ for epoch in range(500):
             prob = -out + 1.0
             correct += 1 if out.data < 0.5 else 0
 
-        prob.name = "loss"
         loss = -prob.log()
         loss.backward()
         total_loss += loss.data

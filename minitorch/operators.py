@@ -33,7 +33,7 @@ def neg(x):
 
 
 def lt(x, y):
-    ":math:`f(x) =` 1.0 if x is greater then y else 0.0"
+    ":math:`f(x) =` 1.0 if x is greater than y else 0.0"
     raise NotImplementedError('Need to include this file from past assignment.')
 
 
@@ -41,7 +41,7 @@ def sigmoid(x):
     r"""
     :math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})}`
 
-    (See https://en.wikipedia.org/wiki/Sigmoid_function .)
+    (See `<https://en.wikipedia.org/wiki/Sigmoid_function>`_ .)
     """
     raise NotImplementedError('Need to include this file from past assignment.')
 
@@ -50,13 +50,13 @@ def relu(x):
     """
     :math:`f(x) =` x if x is greater than 0, else 0
 
-    (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks).)
+    (See `<https://en.wikipedia.org/wiki/Rectifier_(neural_networks)>`_ .)
     """
     raise NotImplementedError('Need to include this file from past assignment.')
 
 
 def relu_back(x, y):
-    ":math:`f(x) =` y if x is greater then 0 else 0"
+    ":math:`f(x) =` y if x is greater than 0 else 0"
     raise NotImplementedError('Need to include this file from past assignment.')
 
 
@@ -89,7 +89,7 @@ def map(fn):
     .. image:: figs/Ops/maplist.png
 
 
-    See https://en.wikipedia.org/wiki/Map_(higher-order_function)
+    See `<https://en.wikipedia.org/wiki/Map_(higher-order_function)>`_
 
     Args:
         fn (one-arg function): process one value
@@ -111,7 +111,7 @@ def zipWith(fn):
 
     .. image:: figs/Ops/ziplist.png
 
-    See https://en.wikipedia.org/wiki/Map_(higher-order_function)
+    See `<https://en.wikipedia.org/wiki/Map_(higher-order_function)>`_
 
     Args:
         fn (two-arg function): combine two values

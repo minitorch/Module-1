@@ -1,8 +1,6 @@
 from .util import wrap_tuple, unwrap_tuple
 import uuid
 
-nx = None
-
 
 class Variable:
     """
@@ -63,15 +61,6 @@ class Variable:
 
     def expand(self, x):
         return x
-
-    # def make_graph(self, graphfile, grad_output=1.0):
-    #     global nx
-    #     import networkx as nx
-    #     import graphviz
-
-    #     G = AutodiffRunner().run(self, grad_output, make_graph=True)
-    #     nx.nx_pydot.write_dot(G, graphfile)
-    #     graphviz.render(filepath="graph.dot", format="png", engine="dot")
 
     ## IGNORE
 
