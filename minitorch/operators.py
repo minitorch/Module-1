@@ -42,6 +42,13 @@ def sigmoid(x):
     :math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})}`
 
     (See `<https://en.wikipedia.org/wiki/Sigmoid_function>`_ .)
+
+    Calculate as
+
+    :math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})} if x >=0 else \frac{e^x}{(1.0 + e^{x})}`
+
+    for stability.
+
     """
     raise NotImplementedError('Need to include this file from past assignment.')
 
@@ -75,6 +82,15 @@ def exp(x):
 
 def log_back(a, b):
     return b / (a + EPS)
+
+
+def inv(x):
+    ":math:`f(x) = 1/x`"
+    return 1.0 / x
+
+
+def inv_back(a, b):
+    return -(1.0 / a ** 2) * b
 
 
 #

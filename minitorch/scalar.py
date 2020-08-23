@@ -8,8 +8,8 @@ Implementation of the scalar object for autodifferentiation.
 
 
 from .autodiff import FunctionBase, Variable, History
-from .util import assert_close
 from . import operators
+import numpy as np
 
 
 def central_difference(f, *vals, arg=0, epsilon=1e-6):
@@ -255,4 +255,4 @@ def derivative_check(f, *scalars):
     for i, x in enumerate(scalars):
         check = central_difference(f, *vals, arg=i)
         print(x.derivative, check)
-        assert_close(x.derivative, check.data)
+        np.testing.assert_allclose(x.derivative, check.data, 1e-2, 1e-2)

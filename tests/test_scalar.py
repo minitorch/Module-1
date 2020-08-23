@@ -1,8 +1,7 @@
 from hypothesis import given
-from .strategies import scalars
+from .strategies import scalars, assert_close
 import minitorch
 import pytest
-from minitorch import assert_close
 
 
 @pytest.mark.task1_1
