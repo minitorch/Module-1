@@ -1,15 +1,10 @@
-"""
-Scalar
-------------
-
-Implementation of the scalar object for autodifferentiation.
-
-"""
-
-
 from .autodiff import FunctionBase, Variable, History
 from . import operators
 import numpy as np
+
+
+## Task 1.1
+## Derivatives
 
 
 def central_difference(f, *vals, arg=0, epsilon=1e-6):
@@ -19,7 +14,7 @@ def central_difference(f, *vals, arg=0, epsilon=1e-6):
     See :doc:`derivative` or https://en.wikipedia.org/wiki/Finite_difference for more details.
 
     Args:
-       f : arbitrary function from n-args to one value
+       f : arbitrary function from n-scalar args to one value
        *vals (floats): n-float values :math:`x_1 \ldots x_n`
        arg (int): the number :math:`i` of the arg to compute the derivative
        epsilon (float): a small constant
@@ -31,12 +26,16 @@ def central_difference(f, *vals, arg=0, epsilon=1e-6):
     raise NotImplementedError('Need to implement for Task 1.1')
 
 
+## Task 1.2 and 1.4
+## Scalar Forward and Backward
+
+
 class Scalar(Variable):
     """
     A reimplementation of scalar values for autodifferentiation
     tracking.  Scalar Variables behave as close as possible to standard
     Python numbers while also tracking the operations that led to the
-    numbers creation. They can only be manipulated by
+    number's creation. They can only be manipulated by
     :class:`ScalarFunction`.
 
     Attributes:
@@ -82,6 +81,10 @@ class Scalar(Variable):
         # TODO: Implement for Task 1.2.
         raise NotImplementedError('Need to implement for Task 1.2')
 
+    def exp(self):
+        # TODO: Implement for Task 1.2.
+        raise NotImplementedError('Need to implement for Task 1.2')
+
     def sigmoid(self):
         # TODO: Implement for Task 1.2.
         raise NotImplementedError('Need to implement for Task 1.2')
@@ -106,19 +109,19 @@ class ScalarFunction(FunctionBase):
            *inputs (list of numbers): Numerical arguments.
 
         Returns:
-            number : The computation of the function f.
+            number : The computation of the function :math:`f`
 
         """
         pass
 
     @staticmethod
-    def backward(ctx, d_output):
+    def backward(ctx, d_out):
         """
         Args:
             ctx (Context): A special container object holding any information saved during in the corresponding `forward` call.
-            d_output (number):
+            d_out (number):
         Returns:
-            numbers : The computation of the derive function f' for each inputs times `d_output`.
+            numbers : The computation of the derivative function :math:`f'_{x_i}` for each input :math:`x_i` times `d_out`.
         """
         pass
 

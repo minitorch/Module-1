@@ -16,9 +16,9 @@ def unwrap_tuple(x):
 class Variable:
     """
     Attributes:
-        history (:class:`History`) : The sequence of function calls that led to this variable.
-        derivative (number): The derivative with respect to this variable.
-        name (string) : an optional name for debugging.
+        history (:class:`History`) : The function calls that created this variable
+        derivative (number): The derivative with respect to this variable
+        name (string) : an optional name for debugging
     """
 
     def __init__(self, history, name=None):
@@ -169,7 +169,7 @@ class FunctionBase:
         Implement the derivative chain-rule.
 
         Args:
-            cls (:class:`FunctionBase`): The function
+            cls (:class:`FunctionBase`): The Function
             ctx (:class:`Context`) : The context from running forward
             inputs (list of args) : The args that were passed to :func:`FunctionBase.apply` (e.g. :math:`x, y`)
             d_output (number) : The `d_output` value in the chain rule.
@@ -190,12 +190,12 @@ def is_leaf(val):
 def backpropagate(final_variable_with_deriv):
     """
     Runs a breadth-first search on the computation graph in order to
-    propagate derivative to the leaves.
+    backpropagate derivatives to the leaves.
 
     See :doc:`backpropagate` for details on the algorithm
 
     Args:
-       final_variable_with_deriv (:class:`VariableWithDeriv`): The final value
+       final_variable_with_deriv (:class:`VariableWithDeriv`): The final variable
            and its derivative that we want to propagate backward to the leaves.
     """
     # TODO: Implement for Task 1.4.
