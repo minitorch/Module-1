@@ -109,10 +109,11 @@ def map(fn):
     See `<https://en.wikipedia.org/wiki/Map_(higher-order_function)>`_
 
     Args:
-        fn (one-arg function): process one value
+        fn (one-arg function): Function from one value to one value.
 
     Returns:
-        function : a function that takes a list and applies `fn` to each element
+        function : A function that takes a list, applies `fn` to each element, and returns a
+        new list
     """
     raise NotImplementedError('Need to include this file from past assignment.')
 
