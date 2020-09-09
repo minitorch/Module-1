@@ -1,3 +1,9 @@
+"""
+Be sure you have the extra requirements installed.
+
+>>> pip install requirements.extra.txt
+"""
+
 import requests
 import networkx as nx
 import minitorch

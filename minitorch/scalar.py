@@ -15,12 +15,12 @@ def central_difference(f, *vals, arg=0, epsilon=1e-6):
 
     Args:
        f : arbitrary function from n-scalar args to one value
-       *vals (floats): n-float values :math:`x_1 \ldots x_n`
+       *vals (floats): n-float values :math:`x_0 \ldots x_{n-1}`
        arg (int): the number :math:`i` of the arg to compute the derivative
        epsilon (float): a small constant
 
     Returns:
-       float : An approximation of :math:`f'_i(x_1, \ldots, x_n)`
+       float : An approximation of :math:`f'_i(x_0, \ldots, x_{n-1})`
     """
     # TODO: Implement for Task 1.1.
     raise NotImplementedError('Need to implement for Task 1.1')
@@ -61,7 +61,6 @@ class Scalar(Variable):
         raise NotImplementedError('Need to implement for Task 1.2')
 
     def __lt__(self, b):
-        ""
         # TODO: Implement for Task 1.2.
         raise NotImplementedError('Need to implement for Task 1.2')
 
@@ -136,7 +135,7 @@ class ScalarFunction(FunctionBase):
 
 # Examples
 class Add(ScalarFunction):
-    "Implements additions"
+    "Addition function"
 
     @staticmethod
     def forward(ctx, a, b):
@@ -148,7 +147,7 @@ class Add(ScalarFunction):
 
 
 class Log(ScalarFunction):
-    "Implements log"
+    "Log function"
 
     @staticmethod
     def forward(ctx, a):
@@ -162,6 +161,8 @@ class Log(ScalarFunction):
 
 
 class LT(ScalarFunction):
+    "Less-than function"
+
     @staticmethod
     def forward(ctx, a, b):
         return 1.0 if a < b else 0.0
@@ -175,6 +176,8 @@ class LT(ScalarFunction):
 
 
 class Mul(ScalarFunction):
+    "Multiplication function"
+
     @staticmethod
     def forward(ctx, a, b):
         # TODO: Implement for Task 1.2.
@@ -187,6 +190,8 @@ class Mul(ScalarFunction):
 
 
 class Inv(ScalarFunction):
+    "Inverse function"
+
     @staticmethod
     def forward(ctx, a):
         # TODO: Implement for Task 1.2.
@@ -199,6 +204,8 @@ class Inv(ScalarFunction):
 
 
 class Neg(ScalarFunction):
+    "Negation function"
+
     @staticmethod
     def forward(ctx, a):
         # TODO: Implement for Task 1.2.
@@ -211,6 +218,8 @@ class Neg(ScalarFunction):
 
 
 class Sigmoid(ScalarFunction):
+    "Sigmoid function"
+
     @staticmethod
     def forward(ctx, a):
         # TODO: Implement for Task 1.2.
@@ -223,6 +232,8 @@ class Sigmoid(ScalarFunction):
 
 
 class ReLU(ScalarFunction):
+    "ReLU function"
+
     @staticmethod
     def forward(ctx, a):
         # TODO: Implement for Task 1.2.
@@ -235,6 +246,8 @@ class ReLU(ScalarFunction):
 
 
 class Exp(ScalarFunction):
+    "Exp function"
+
     @staticmethod
     def forward(ctx, a):
         # TODO: Implement for Task 1.2.
