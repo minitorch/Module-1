@@ -6,7 +6,12 @@
 
 * Overview: https://minitorch.github.io/module1.html
 
-This module requires `operators.py` and `modules.py` from Module 0
+This module requires `operators.py` and `module.py` from Module 0
+
+```
+cp ../Module-0/operators.py ../Module-0/module.py minitorch/
+```
+
 
 * Tests:
 
