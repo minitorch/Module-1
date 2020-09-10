@@ -13,7 +13,7 @@ import visdom
 ## Create an autodiff expression here.
 def expression():
     x = minitorch.Scalar(10, name="x")
-    y = x + 10.0
+    y = (x + 10.0) * 20
     y.name = "y"
     return y
 
