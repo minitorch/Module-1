@@ -45,8 +45,7 @@ class Scalar(Variable):
 
     def __init__(self, v, back=History(), name=None):
         super().__init__(back, name=name)
-        assert isinstance(v, float), f"Expected input value type float got {type(v)}"
-        self.data = v
+        self.data = float(v)
 
     def __repr__(self):
         return "Scalar(%f)" % self.data
