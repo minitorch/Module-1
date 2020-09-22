@@ -1,7 +1,7 @@
 """
 Be sure you have the extra requirements installed.
 
->>> pip install requirements.extra.txt
+>>> pip install -r requirements.extra.txt
 """
 
 import requests
