@@ -1,7 +1,9 @@
 """
-Be sure you have the extra requirements installed.
+Be sure you have the extra requirements installed,
+and that you've started a visdom server.
 
 >>> pip install -r requirements.extra.txt
+>>> visdom
 """
 
 import requests
