@@ -169,7 +169,7 @@ class LT(ScalarFunction):
 
     @staticmethod
     def backward(ctx, d_output):
-        return 0.0
+        return 0.0, 0.0
 
 
 # To implement.
