@@ -179,8 +179,17 @@ class FunctionBase:
             (see `is_constant` to remove unneeded variables)
 
         """
-        # TODO: Implement for Task 1.3.
-        raise NotImplementedError('Need to implement for Task 1.3')
+        derivs = cls.backward(ctx, d_output)
+        if type(derivs) != tuple:
+            derivs = (derivs,)
+
+        tbr = []
+        for ii, deriv in enumerate(derivs):
+            if is_constant(inputs[ii]):
+                continue
+            tbr.append(VariableWithDeriv(inputs[ii], deriv))
+
+        return tbr
 
 
 def is_leaf(val):
@@ -202,5 +211,21 @@ def backpropagate(final_variable_with_deriv):
        final_variable_with_deriv (:class:`VariableWithDeriv`): The final variable
            and its derivative that we want to propagate backward to the leaves.
     """
-    # TODO: Implement for Task 1.4.
-    raise NotImplementedError('Need to implement for Task 1.4')
+    queue = [final_variable_with_deriv]
+    while queue:
+        s = queue.pop(0)
+        if s.variable.history.is_leaf():
+            s.variable._add_deriv(s.deriv)
+            continue
+
+        vars_with_deriv = s.variable.history.backprop_step(s.deriv)
+        for var_with_deriv in vars_with_deriv:
+            insert_qeue = True
+            for q in queue:
+                if var_with_deriv.variable.name == q.variable.name:
+                    q.deriv += var_with_deriv.deriv
+                    insert_qeue = False
+                    break
+
+            if insert_qeue:
+                queue.append(var_with_deriv)

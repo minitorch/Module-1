@@ -47,7 +47,7 @@ def test_one_args(fn, t1):
 @pytest.mark.task1_4
 @pytest.mark.parametrize("fn", one_arg)
 def test_one_derivative(fn, t1):
-    minitorch.derivative_check(fn[1], t1)
+    minitorch.derivative_check(fn, t1)
 
 
 two_arg = [
@@ -61,4 +61,4 @@ two_arg = [
 @pytest.mark.task1_4
 @pytest.mark.parametrize("fn", two_arg)
 def test_two_derivative(fn, t1, t2):
-    minitorch.derivative_check(fn[1], t1, t2)
+    minitorch.derivative_check(fn, t1, t2)
