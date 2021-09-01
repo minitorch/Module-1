@@ -18,11 +18,6 @@ class MathTest:
         return a * a
 
     @staticmethod
-    def square(a):
-        "Manual square"
-        return (a + 5 + 2 + 3) * a
-
-    @staticmethod
     def cube(a):
         "Manual cube"
         return a * a * a
@@ -67,6 +62,7 @@ class MathTest:
         "Apply exp to a smaller value"
         return operators.exp(a - 200)
 
+    @staticmethod
     def explog(a):
         return operators.log(a + 100000) + operators.exp(a - 200)
 
