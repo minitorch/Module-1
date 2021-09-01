@@ -44,7 +44,7 @@ class GraphBuilder:
             (cur,) = queue[0]
             queue = queue[1:]
 
-            if cur.is_leaf():
+            if minitorch.is_constant(cur) or cur.is_leaf():
                 continue
             else:
                 op = "%s (Op %d)" % (cur.history.last_fn.__name__, self.op_id)

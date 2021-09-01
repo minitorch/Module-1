@@ -289,7 +289,7 @@ def topological_sort(variable):
         variable (:class:`Variable`): The right-most variable
 
     Returns:
-        list of Variables : Variables in topological order
+        list of Variables : Non-constant Variables in topological order
                             starting from the right.
     """
     # TODO: Implement for Task 1.4.
