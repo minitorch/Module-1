@@ -13,16 +13,6 @@ class MathTest:
         return 5 + a
 
     @staticmethod
-    def square(a):
-        "Manual square"
-        return a * a
-
-    @staticmethod
-    def cube(a):
-        "Manual cube"
-        return a * a * a
-
-    @staticmethod
     def subConstant(a):
         "Subtract a constant from the argument"
         return a - 5
@@ -63,10 +53,6 @@ class MathTest:
         return operators.exp(a - 200)
 
     @staticmethod
-    def explog(a):
-        return operators.log(a + 100000) + operators.exp(a - 200)
-
-    @staticmethod
     def add2(a, b):
         "Add two arguments"
         return a + b
@@ -104,6 +90,17 @@ class MathTest:
     @staticmethod
     def mean_full_red(a):
         return operators.sum(a) / float(len(a))
+
+    @staticmethod
+    def complex(a):
+        return (
+            operators.log(
+                operators.sigmoid(
+                    operators.relu(operators.relu(a * 10 + 7) * 6 + 5) * 10
+                )
+            )
+            / 50
+        )
 
     @classmethod
     def _tests(cls):
@@ -149,10 +146,6 @@ class MathTestVariable(MathTest):
         return (a - 200).exp()
 
     @staticmethod
-    def explog(a):
-        return (a + 100000).log() + (a - 200).exp()
-
-    @staticmethod
     def sum_red(a):
         return a.sum(0)
 
@@ -175,3 +168,7 @@ class MathTestVariable(MathTest):
     @staticmethod
     def lt2(a, b):
         return a + 1.2 < b
+
+    @staticmethod
+    def complex(a):
+        return (((a * 10 + 7).relu() * 6 + 5).relu() * 10).sigmoid().log() / 50

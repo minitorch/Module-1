@@ -9,16 +9,13 @@ import random
 class Network(minitorch.Module):
     def __init__(self, hidden_layers):
         super().__init__()
-
-        # Submodules
-        self.layer1 = Linear(2, hidden_layers)
-        self.layer2 = Linear(hidden_layers, hidden_layers)
-        self.layer3 = Linear(hidden_layers, 1)
+        # TODO: Implement for Task 1.5.
+        raise NotImplementedError('Need to implement for Task 1.5')
 
     def forward(self, x):
-        h = [h.relu() for h in self.layer1.forward(x)]
-        h = [h.relu() for h in self.layer2.forward(h)]
-        return self.layer3.forward(h)[0].sigmoid()
+        middle = [h.relu() for h in self.layer1.forward(x)]
+        end = [h.relu() for h in self.layer2.forward(middle)]
+        return self.layer3.forward(end)[0].sigmoid()
 
 
 class Linear(minitorch.Module):
@@ -42,11 +39,8 @@ class Linear(minitorch.Module):
             )
 
     def forward(self, inputs):
-        y = [b.value for b in self.bias]
-        for i, x in enumerate(inputs):
-            for j in range(len(y)):
-                y[j] = y[j] + x * self.weights[i][j].value
-        return y
+        # TODO: Implement for Task 1.5.
+        raise NotImplementedError('Need to implement for Task 1.5')
 
 
 def default_log_fn(epoch, total_loss, correct, losses):
@@ -76,7 +70,10 @@ class ScalarTrain:
             optim.zero_grad()
 
             # Forward
+            loss = 0
             for i in range(data.N):
+                # print("before", self.model.layer1.bias[0].value._derivative)
+                # print("before", self.model.layer3.bias[0].value._derivative)
                 x_1, x_2 = data.X[i]
                 y = data.y[i]
                 x_1 = minitorch.Scalar(x_1)
@@ -89,10 +86,13 @@ class ScalarTrain:
                 else:
                     prob = -out + 1.0
                     correct += 1 if out.data < 0.5 else 0
-
-                loss = -prob.log() / data.N
-                loss.backward()
+                # print(prob, out, y)
+                loss = -prob.log()
+                (loss / data.N).backward()
+                # print("after", self.model.layer1.bias[0].value._derivative)
+                # print("after", self.model.layer3.bias[0].value._derivative)
                 total_loss += loss.data
+                # print(loss)
 
             losses.append(total_loss)
 
@@ -106,7 +106,7 @@ class ScalarTrain:
 
 if __name__ == "__main__":
     PTS = 50
-    HIDDEN = 5
+    HIDDEN = 2
     RATE = 0.5
-    data = minitorch.datasets.simple(PTS)
+    data = minitorch.datasets["Simple"](PTS)
     ScalarTrain(HIDDEN).train(data, RATE)
