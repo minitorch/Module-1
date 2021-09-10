@@ -70,12 +70,10 @@ class Variable:
         Args:
             val (number): value to be accumulated
         """
-        # print("accumulating", val, self._derivative, self.name)
         assert self.is_leaf(), "Only leaf variables can have derivatives."
         if self._derivative is None:
             self._derivative = self.zeros()
         self._derivative += val
-        # print("accumulated", val, self._derivative)
 
     def zero_derivative_(self):  # pragma: no cover
         """

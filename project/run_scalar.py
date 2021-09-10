@@ -72,8 +72,6 @@ class ScalarTrain:
             # Forward
             loss = 0
             for i in range(data.N):
-                # print("before", self.model.layer1.bias[0].value._derivative)
-                # print("before", self.model.layer3.bias[0].value._derivative)
                 x_1, x_2 = data.X[i]
                 y = data.y[i]
                 x_1 = minitorch.Scalar(x_1)
@@ -86,13 +84,9 @@ class ScalarTrain:
                 else:
                     prob = -out + 1.0
                     correct += 1 if out.data < 0.5 else 0
-                # print(prob, out, y)
                 loss = -prob.log()
                 (loss / data.N).backward()
-                # print("after", self.model.layer1.bias[0].value._derivative)
-                # print("after", self.model.layer3.bias[0].value._derivative)
                 total_loss += loss.data
-                # print(loss)
 
             losses.append(total_loss)
 
