@@ -1,10 +1,13 @@
 """
 Description:
-Make sure that both the new and old module files are in same directory!
+Note: Make sure that both the new and old module files are in same directory!
+
 This script helps you sync your previous module works with current modules.
 It takes 2 arguments, source_dir_name and destination_dir_name.
 All the files which will be moved are specified in files_to_sync.txt as newline separated strings
+
 Usage: python sync_previous_module.py <source_dir_name> <dest_dir_name>
+
 Ex:  python sync_previous_module.py mle-module-0-sauravpanda24 mle-module-1-sauravpanda24
 """
 import os
