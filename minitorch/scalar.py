@@ -62,6 +62,9 @@ class Scalar(Variable):
         # TODO: Implement for Task 1.2.
         raise NotImplementedError('Need to implement for Task 1.2')
 
+    def __bool__(self):
+        return bool(self.data)
+
     def __lt__(self, b):
         # TODO: Implement for Task 1.2.
         raise NotImplementedError('Need to implement for Task 1.2')
@@ -272,8 +275,9 @@ class LT(ScalarFunction):
     def forward(ctx, a, b):
         # TODO: Implement for Task 1.2.
         raise NotImplementedError('Need to implement for Task 1.2')
-        # TODO: Implement for Task 1.2.
-        raise NotImplementedError('Need to implement for Task 1.2')
+
+    @staticmethod
+    def backward(ctx, d_output):
         # TODO: Implement for Task 1.4.
         raise NotImplementedError('Need to implement for Task 1.4')
 

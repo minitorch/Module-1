@@ -1,3 +1,6 @@
+import inspect
+import streamlit as st
+
 img_id_counter = 0
 
 
@@ -26,4 +29,15 @@ def get_img_tag(src, width=None):
         {}
     """.format(
         src, img_id, img_id, style
+    )
+
+
+def render_function(fn):
+    st.markdown(
+        """
+```python
+%s
+
+```"""
+        % inspect.getsource(fn)
     )

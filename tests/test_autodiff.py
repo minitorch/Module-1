@@ -64,7 +64,7 @@ def test_chain_rule3():
     var = minitorch.Scalar(5)
 
     ctx = minitorch.Context()
-    Function2.forward(ctx, constant, var)
+    Function2.forward(ctx, constant, var.data)
 
     back = Function2.chain_rule(ctx=ctx, inputs=[constant, var], d_output=5)
     back = list(back)
@@ -80,17 +80,17 @@ def test_chain_rule4():
     var2 = minitorch.Scalar(10)
 
     ctx = minitorch.Context()
-    Function2.forward(ctx, var1, var2)
+    Function2.forward(ctx, var1.data, var2.data)
 
     back = Function2.chain_rule(ctx=ctx, inputs=[var1, var2], d_output=5)
     back = list(back)
     assert len(back) == 2
     variable, deriv = back[0]
     assert variable.name == var1.name
-    assert deriv == 5 * 10
+    assert deriv == 5 * (10 + 1)
     variable, deriv = back[1]
     assert variable.name == var2.name
-    assert deriv == 5 * 10
+    assert deriv == 5 * 5
 
 
 # ## Task 1.4 - Run some simple backprop tests

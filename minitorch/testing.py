@@ -13,6 +13,16 @@ class MathTest:
         return 5 + a
 
     @staticmethod
+    def square(a):
+        "Manual square"
+        return a * a
+
+    @staticmethod
+    def cube(a):
+        "Manual cube"
+        return a * a * a
+
+    @staticmethod
     def subConstant(a):
         "Subtract a constant from the argument"
         return a - 5
@@ -51,6 +61,10 @@ class MathTest:
     def exp(a):
         "Apply exp to a smaller value"
         return operators.exp(a - 200)
+
+    @staticmethod
+    def explog(a):
+        return operators.log(a + 100000) + operators.exp(a - 200)
 
     @staticmethod
     def add2(a, b):
@@ -144,6 +158,10 @@ class MathTestVariable(MathTest):
     @staticmethod
     def exp(a):
         return (a - 200).exp()
+
+    @staticmethod
+    def explog(a):
+        return (a + 100000).log() + (a - 200).exp()
 
     @staticmethod
     def sum_red(a):

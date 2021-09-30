@@ -15,6 +15,19 @@ def build_expression(code):
     return out
 
 
+def build_tensor_expression(code):
+    out = eval(
+        code,
+        {
+            "x": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
+            "y": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
+            "z": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
+        },
+    )
+    out.name = "out"
+    return out
+
+
 class GraphBuilder:
     def __init__(self):
         self.op_id = 0
@@ -44,7 +57,7 @@ class GraphBuilder:
             (cur,) = queue[0]
             queue = queue[1:]
 
-            if cur.is_leaf():
+            if minitorch.is_constant(cur) or cur.is_leaf():
                 continue
             else:
                 op = "%s (Op %d)" % (cur.history.last_fn.__name__, self.op_id)
