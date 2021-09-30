@@ -1,0 +1,4 @@
+minitorch/operators.py
+minitorch/module.py
+tests/test_module.py
+tests/test_operators.py
