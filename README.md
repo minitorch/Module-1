@@ -1,6 +1,6 @@
 # MiniTorch Module 1
 
-<img src="https://minitorch.github.io/minitorch.svg" width="100px">
+<img src="https://minitorch.github.io/minitorch.svg" width="100%x">
 
 * Docs: https://minitorch.github.io/
 
