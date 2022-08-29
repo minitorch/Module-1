@@ -3,6 +3,7 @@ from typing import Sequence
 from .module import Parameter
 from .scalar import Scalar
 
+
 class Optimizer:
     def __init__(self, parameters: Sequence[Parameter]):
         self.parameters = parameters

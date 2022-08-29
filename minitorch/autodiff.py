@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Protocol, Tuple
+from typing import Any, Iterable, List, Tuple
+
+from typing_extensions import Protocol
 
 # ## Task 1.1
 # Central Difference calculation
