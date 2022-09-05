@@ -31,11 +31,20 @@ class Module:
 
     def train(self) -> None:
         "Set the mode of this module and all descendent modules to `train`."
-        raise NotImplementedError("Need to include this file from past assignment.")
+        # TODO: Implement for Task 0.4.
+        self.training = True
+        # Unsure if this is how you access / change child modules?
+        for child in self.modules():
+            child.training = True
 
     def eval(self) -> None:
         "Set the mode of this module and all descendent modules to `eval`."
-        raise NotImplementedError("Need to include this file from past assignment.")
+        # TODO: Implement for Task 0.4.
+        self.training = False
+        # Unsure if this is how you access / change child modules?
+        for child in self.modules():
+            child.training = False
+
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """
@@ -45,11 +54,43 @@ class Module:
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
-        raise NotImplementedError("Need to include this file from past assignment.")
+        # TODO: Implement for Task 0.4.
+        # Problem: this is only getting the parameters from the current module.
+        # We want the parameters from all the descendents of these modules too.
+        # I think the solution might look recursive?
+        p: Dict[str, Parameter] = self.__dict__["_parameters"]
+        ls = list(zip(p.keys(), p.values()))
+
+
+
+        m: Dict[str, Module] = self.__dict__["_modules"]
+
+        #print("m is " + str(m))
+
+        #print(" list m is " + str(list(zip(m.keys(), m.values()))))
+
+        zipped_m = list(zip(m.keys(), m.values()))
+
+        for (mod_key, mod_value) in zipped_m:
+            ls1 = [(mod_key + "." + mod[0], mod[1]) for mod in mod_value.named_parameters()]
+            ls += ls1
+        return ls
+
+        # print( self.__dict__["_modules"] )
+        # #return self.__dict__["_modules"]
+
+        # # For each descendent module, find the named parameters of these modules, add them to the list
+        # # Not only add them, add them with the prefix describing the modules they came from!
+        # for mod in self.__dict__["_modules"].:
+        #     ls1 = [(str(mod) + "." + x[0], x[1]) for x in mod.named_parameters()]
+        #     s += ls1
+        # return ls
 
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
-        raise NotImplementedError("Need to include this file from past assignment.")
+        # TODO: Implement for Task 0.4.
+        ls = [y for (x,y) in self.named_parameters()]
+        return ls
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """
@@ -115,9 +156,9 @@ class Module:
 
 class Parameter:
     """
-    A Parameter is a special container stored in a `Module`.
+    A Parameter is a special container stored in a :class:`Module`.
 
-    It is designed to hold a `Variable`, but we allow it to hold
+    It is designed to hold a :class:`Variable`, but we allow it to hold
     any value for testing.
     """
 
