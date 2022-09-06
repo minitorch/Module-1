@@ -112,8 +112,6 @@ class Scalar:
 
     def __sub__(self, b: ScalarLike) -> Scalar:
         # TODO: Implement for Task 1.2.
-        # Unsure about this one
-        # print(type(Neg.apply(b)))
         return Add.apply(self, Neg.apply(b))
 
     def __neg__(self) -> Scalar:
@@ -175,9 +173,18 @@ class Scalar:
         assert h is not None
         assert h.last_fn is not None
         assert h.ctx is not None
-
         # TODO: Implement for Task 1.3.
-        raise NotImplementedError("Need to implement for Task 1.3")
+
+        # I'm not sure exactly why, but this works.
+        # I think the idea is: do backward_pass on the next function down using the global derivative and the context
+        # Then, we combine these with the inputs to give us input derivative pairs.
+        
+
+        local_derivs = h.last_fn.backward(h.ctx, d_output)
+        derivs_vars = list(zip(h.inputs, local_derivs))
+        return derivs_vars
+
+        
 
     def backward(self, d_output: Optional[float] = None) -> None:
         """
