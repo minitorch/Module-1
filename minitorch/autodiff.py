@@ -60,9 +60,50 @@ class Variable(Protocol):
         pass
 
 
+
+def find_nodes(variable):
+    """
+    Helper function to find all descendent modules of a module.
+    """
+    lst = []    
+    # find the direct descendents of the node, add these to the list
+    children = variable.modules()
+    lst += children
+    # if there are none, return the list
+    if children == []:
+        return lst
+    # otherwise, find the nodes of all descendent modules, and append these to the list. Recursive.
+    else:
+        for child in children:
+            lst += find_nodes(child)
+    return lst
+
+def visit(node_n, L):
+    """
+    Helper function for topological sort.
+
+    Outlines the visit function found in the depth first search pseudocode here:
+    https://en.wikipedia.org/wiki/Topological_sorting#Depth-first_search
+    """
+    # If node already added, stop the visit
+    if node_n in L:
+        return L
+    # Otherwise, visit each child node
+    children = node_n.modules()
+    for child in children:
+        # update the list to reflect what happens after the search
+        L = visit(child, L)
+    #prepend the list with your original node
+    L.insert(0, node_n)
+    return L
+
+
+
 def topological_sort(variable: Variable) -> Iterable[Variable]:
     """
     Computes the topological order of the computation graph.
+
+    Works by Depth-first search.
 
     Args:
         variable: The right-most variable
@@ -71,7 +112,23 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
         Non-constant Variables in topological order starting from the right.
     """
     # TODO: Implement for Task 1.4.
-    raise NotImplementedError("Need to implement for Task 1.4")
+
+    # TODO: not sure this is adding the top level node currently? Also general testing
+
+    # To implement topological sort, we first need to form a list of all nodes, from the first node.
+    nodes = find_nodes(variable)
+
+    # Empty list which will contain the sorted nodes
+    L = []
+
+    while nodes != []:
+        #print(nodes)
+        node = nodes[0]
+        L = visit(node, L)
+        #print(L)
+        nodes = nodes[1:]
+    return L
+    # raise NotImplementedError("Need to implement for Task 1.4")
 
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
