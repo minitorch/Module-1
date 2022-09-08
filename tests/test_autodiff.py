@@ -15,7 +15,7 @@ class Function1(ScalarFunction):
     def forward(ctx: Context, x: float, y: float) -> float:
         "$f(x, y) = x + y + 10$"
         return x + y + 10
-
+                
     @staticmethod
     def backward(ctx: Context, d_output: float) -> Tuple[float, float]:
         "Derivatives are $f'_x(x, y) = 1$ and $f'_y(x, y) = 1$"

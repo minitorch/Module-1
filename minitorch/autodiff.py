@@ -164,12 +164,23 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
         if node.is_leaf():
             #print(node.is_leaf())
             node.accumulate_derivative(deriv)
+            print("node, deriv are" + str(node) + str(deriv))
+            print("node derivative (within the list is " + str(node.derivative))
+            #assert node.derivative == 5
         # If not, call backprop_step on the node, and add deriv to that scalar's total deriv.
         else:
             next_scalars_derivs = node.backprop_step(deriv)
-            for (scalar, deriv) in next_scalars_derivs:
-                current_backprop[scalar.unique_id] += deriv
-    
+            for (scalar, deriv2) in next_scalars_derivs:
+                print("deriv2 is" + str(deriv2))
+                if scalar.unique_id in current_backprop.keys():
+                    current_backprop[scalar.unique_id] += deriv2
+                else:
+                    current_backprop[scalar.unique_id] = deriv2
+    print("current_backprop is" + str(current_backprop))
+
+    print("variable.derivative is "+ str(variable.parents[1].derivative))
+
+    #assert variable.parents[0].derivative == 5
     return
 
 
