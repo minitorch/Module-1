@@ -46,6 +46,7 @@ class Variable(Protocol):
     def unique_id(self) -> int:
         pass
 
+    # I think these have all been implemented somewhere??
     def is_leaf(self) -> bool:
         pass
 
@@ -65,9 +66,12 @@ def find_nodes(variable):
     """
     Helper function to find all descendent modules of a module.
     """
-    lst = []    
+
+    # TODO: PROBLEM: variables are not a class of modules. Hence, we need to implement the below stuff in terms of scalars instead.
+    # Have maybe solved this, but it needs checking
+    lst = [variable]    
     # find the direct descendents of the node, add these to the list
-    children = variable.modules()
+    children = variable.parents
     lst += children
     # if there are none, return the list
     if children == []:
@@ -89,11 +93,12 @@ def visit(node_n, L):
     if node_n in L:
         return L
     # Otherwise, visit each child node
-    children = node_n.modules()
+    children = node_n.parents
     for child in children:
         # update the list to reflect what happens after the search
         L = visit(child, L)
     #prepend the list with your original node
+    # Unsure how to format this: should L be composed of names? or unique ids?
     L.insert(0, node_n)
     return L
 
@@ -113,7 +118,7 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     """
     # TODO: Implement for Task 1.4.
 
-    # TODO: not sure this is adding the top level node currently? Also general testing
+    # TODO: Also general testing
 
     # To implement topological sort, we first need to form a list of all nodes, from the first node.
     nodes = find_nodes(variable)
@@ -128,7 +133,6 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
         #print(L)
         nodes = nodes[1:]
     return L
-    # raise NotImplementedError("Need to implement for Task 1.4")
 
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
@@ -143,7 +147,32 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     No return. Should write to its results to the derivative values of each leaf through `accumulate_derivative`.
     """
     # TODO: Implement for Task 1.4.
-    raise NotImplementedError("Need to implement for Task 1.4")
+    # Form an ordered queue
+    queue = topological_sort(variable)
+    # To help us use unique_id, we are going to create a dictionary of modules with their unique_ids
+    queue_ids = [x.unique_id for x in queue]
+    queue_with_ids = dict(zip(queue_ids, queue))
+
+    # Create dictionary of scalars and current derivatives
+    current_backprop = dict()
+    current_backprop[variable.unique_id] = deriv
+
+    for node in queue:
+        # store derivative
+        deriv = current_backprop[node.unique_id]
+        # If the node is a leaf, then change its derivative.
+        if node.is_leaf():
+            #print(node.is_leaf())
+            node.accumulate_derivative(deriv)
+        # If not, call backprop_step on the node, and add deriv to that scalar's total deriv.
+        else:
+            next_scalars_derivs = node.backprop_step(deriv)
+            for (scalar, deriv) in next_scalars_derivs:
+                current_backprop[scalar.unique_id] += deriv
+    
+    return
+
+
 
 
 @dataclass

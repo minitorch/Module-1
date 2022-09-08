@@ -198,6 +198,26 @@ class Scalar:
             d_output = 1.0
         backpropagate(self, d_output)
 
+    def backprop_step(self, d_output):
+        """
+        Function made by Ole! Not sure if this is where it should go.
+
+        Performs a single step of backpropagation by calling chain rule, loop through the input deriv pairs,
+        add the derivative values or 0.0 if constant, and then return the output list converted to a tuple.
+        
+
+        CHANGE: I'm only going to call the chain rule here, and loop through the scalars etc. in backpropagate.
+        """
+        derivs_vars = self.history.last_fn.chain_rule(d_output)
+        deriv_vars_out = []
+        for (deriv, var) in derivs_vars:
+            if var.is_constant:
+                deriv_vars_out.append((0, var))
+            else:
+                deriv_vars_out.append((deriv, var))
+        return deriv_vars_out
+
+
 
 def derivative_check(f: Any, *scalars: Scalar) -> None:
     """
