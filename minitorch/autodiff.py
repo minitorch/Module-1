@@ -153,7 +153,7 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     # TODO: Implement for Task 1.4.
     # Form an ordered queue
     queue = topological_sort(variable)
-    print("queue is " + str(queue))
+    # print("queue is " + str(queue))
     # To help us use unique_id, we are going to create a dictionary of modules with their unique_ids
     queue_ids = [x.unique_id for x in queue]
     queue_with_ids = dict(zip(queue_ids, queue))
@@ -167,8 +167,8 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
         deriv = current_backprop[node.unique_id]
         # If the node is a leaf, then change its derivative.
         if node.is_leaf():
-            print("leaf node is: " + str(node))
-            print("leaf node derivative is: " + str(deriv))
+            # print("leaf node is: " + str(node))
+            # print("leaf node derivative is: " + str(deriv))
             node.accumulate_derivative(deriv)
             #print("node, deriv are" + str(node) + str(deriv))
             #print("node derivative (within the list is " + str(node.derivative))

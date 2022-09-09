@@ -181,7 +181,13 @@ class Scalar:
         
 
         local_derivs = h.last_fn.backward(h.ctx, d_output)
-        derivs_vars = list(zip(h.inputs, local_derivs))
+        
+        # there are some problems when we have single float return values, this seems to fix that!
+        if type(local_derivs) == float:
+            derivs_vars = [(h.inputs[0], local_derivs)]
+            # print("derivs_vars are" + str(derivs_vars))
+        else:
+            derivs_vars = list(zip(h.inputs, local_derivs))
         return derivs_vars
 
         
@@ -209,7 +215,7 @@ class Scalar:
         CHANGE: I'm only going to call the chain rule here, and loop through the scalars etc. in backpropagate.
         """
         derivs_vars = self.chain_rule(d_output)
-        print(derivs_vars)
+        # print(derivs_vars)
         deriv_vars_out = []
         for (var, deriv) in derivs_vars:
             # Currently this is making stuff output 0 even when I don't think we want it to, so have just set this to False
@@ -218,7 +224,7 @@ class Scalar:
                 deriv_vars_out.append((var, 0))
             else:
                 deriv_vars_out.append((var, deriv))
-        print("deriv_vars_out is " + str(deriv_vars_out))
+        # print("deriv_vars_out is " + str(deriv_vars_out))
         return deriv_vars_out
 
 
@@ -241,6 +247,7 @@ but was expecting derivative f'=%f from central difference."""
     for i, x in enumerate(scalars):
         check = central_difference(f, *scalars, arg=i)
         print(str([x.data for x in scalars]), x.derivative, i, check)
+        print("f is " + str(f))
         assert x.derivative is not None
         np.testing.assert_allclose(
             x.derivative,
