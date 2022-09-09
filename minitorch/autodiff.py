@@ -90,7 +90,9 @@ def visit(node_n, L):
     https://en.wikipedia.org/wiki/Topological_sorting#Depth-first_search
     """
     # If node already added, stop the visit
-    if node_n in L:
+    # There is an issue here: we might have something which is identical here, but not actually the same
+    # This means we are getting rid of duplicate inputs!
+    if (node_n, node_n.unique_id) in L:
         return L
     # Otherwise, visit each child node
     children = node_n.parents
@@ -99,7 +101,7 @@ def visit(node_n, L):
         L = visit(child, L)
     #prepend the list with your original node
     # Unsure how to format this: should L be composed of names? or unique ids?
-    L.insert(0, node_n)
+    L.insert(0, (node_n, node_n.unique_id))
     return L
 
 
@@ -122,7 +124,8 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
 
     # To implement topological sort, we first need to form a list of all nodes, from the first node.
     nodes = find_nodes(variable)
-
+    # I think this part is ok, so the next part is the issue.
+    # print("nodes found by find_nodes "+ str(nodes))
     # Empty list which will contain the sorted nodes
     L = []
 
@@ -132,7 +135,8 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
         L = visit(node, L)
         #print(L)
         nodes = nodes[1:]
-    return L
+    # Since we have stored not just nodes but their unique identifiers, we return the first part of each tuple
+    return [x[0] for x in L]
 
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
@@ -149,6 +153,7 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     # TODO: Implement for Task 1.4.
     # Form an ordered queue
     queue = topological_sort(variable)
+    print("queue is " + str(queue))
     # To help us use unique_id, we are going to create a dictionary of modules with their unique_ids
     queue_ids = [x.unique_id for x in queue]
     queue_with_ids = dict(zip(queue_ids, queue))
@@ -162,23 +167,24 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
         deriv = current_backprop[node.unique_id]
         # If the node is a leaf, then change its derivative.
         if node.is_leaf():
-            #print(node.is_leaf())
+            print("leaf node is: " + str(node))
+            print("leaf node derivative is: " + str(deriv))
             node.accumulate_derivative(deriv)
-            print("node, deriv are" + str(node) + str(deriv))
-            print("node derivative (within the list is " + str(node.derivative))
+            #print("node, deriv are" + str(node) + str(deriv))
+            #print("node derivative (within the list is " + str(node.derivative))
             #assert node.derivative == 5
         # If not, call backprop_step on the node, and add deriv to that scalar's total deriv.
         else:
             next_scalars_derivs = node.backprop_step(deriv)
             for (scalar, deriv2) in next_scalars_derivs:
-                print("deriv2 is" + str(deriv2))
+                #print("deriv2 is" + str(deriv2))
                 if scalar.unique_id in current_backprop.keys():
                     current_backprop[scalar.unique_id] += deriv2
                 else:
                     current_backprop[scalar.unique_id] = deriv2
-    print("current_backprop is" + str(current_backprop))
+    #print("current_backprop is" + str(current_backprop))
 
-    print("variable.derivative is "+ str(variable.parents[1].derivative))
+    #print("variable.derivative is "+ str(variable.parents[1].derivative))
 
     #assert variable.parents[0].derivative == 5
     return
