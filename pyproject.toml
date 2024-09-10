@@ -1,0 +1,151 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "minitorch"
+version = "0.5"
+
+[tool.pyright]
+include = ["**/minitorch"]
+ignore = [
+    "**/docs",
+    "**/docs/module1/**",
+    "**/assignments",
+    "**/project",
+    "**/mt_diagrams",
+    "**/.*",
+    "*chainrule.py*",
+]
+venvPath = "."
+venv = ".venv"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "none"
+reportUnknownArgumentType = "none"
+reportUnknownVariableType = "none"
+reportMissingTypeArgument = "none"
+reportMissingTypeStubs = "none"
+reportUnusedExpression = "none"
+reportUnknownLambdaType = "none"
+reportIncompatibleMethodOverride = "none"
+reportPrivateUsage = "none"
+reportMissingParameterType = "error"
+
+
+[tool.pytest.ini_options]
+markers = [
+    "task0_0",
+    "task0_1",
+    "task0_2",
+    "task0_3",
+    "task0_4",
+    "task1_0",
+    "task1_1",
+    "task1_2",
+    "task1_3",
+    "task1_4",
+    "task2_0",
+    "task2_1",
+    "task2_2",
+    "task2_3",
+    "task2_4",
+    "task3_0",
+    "task3_1",
+    "task3_2",
+    "task3_3",
+    "task3_4",
+    "task4_0",
+    "task4_1",
+    "task4_2",
+    "task4_3",
+    "task4_4",
+]
+[tool.ruff]
+
+exclude = [
+    ".git",
+    "__pycache__",
+    "**/docs/slides/*",
+    "old,build",
+    "dist",
+    "**/project/**/*",
+    "**/mt_diagrams/*",
+    "**/minitorch/testing.py",
+    "**/docs/**/*",
+]
+
+ignore = [
+    "ANN101",
+    "ANN401",
+    "N801",
+    "E203",
+    "E266",
+    "E501",
+    "E741",
+    "N803",
+    "N802",
+    "N806",
+    "D400",
+    "D401",
+    "D105",
+    "D415",
+    "D402",
+    "D205",
+    "D100",
+    "D101",
+    "D107",
+    "D213",
+    "ANN204",
+    "ANN102",
+]
+select = ["D", "E", "F", "N", "ANN"]
+fixable = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "I",
+    "N",
+    "Q",
+    "S",
+    "T",
+    "W",
+    "ANN",
+    "ARG",
+    "BLE",
+    "COM",
+    "DJ",
+    "DTZ",
+    "EM",
+    "ERA",
+    "EXE",
+    "FBT",
+    "ICN",
+    "INP",
+    "ISC",
+    "NPY",
+    "PD",
+    "PGH",
+    "PIE",
+    "PL",
+    "PT",
+    "PTH",
+    "PYI",
+    "RET",
+    "RSE",
+    "RUF",
+    "SIM",
+    "SLF",
+    "TCH",
+    "TID",
+    "TRY",
+    "UP",
+    "YTT",
+]
+unfixable = []
+
+[tool.ruff.extend-per-file-ignores]
+"tests/**/*.py" = ["D"]

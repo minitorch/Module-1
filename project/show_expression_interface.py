@@ -5,7 +5,6 @@ from streamlit_ace import st_ace
 
 
 def render_show_expression(tensor=False):
-
     if tensor:
         st.text("Build an expression of tensors x, y, and z. (All the same shape)")
         code = st_ace(

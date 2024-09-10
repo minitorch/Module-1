@@ -13,25 +13,25 @@ from minitorch import Context, ScalarFunction, ScalarHistory
 class Function1(ScalarFunction):
     @staticmethod
     def forward(ctx: Context, x: float, y: float) -> float:
-        "$f(x, y) = x + y + 10$"
+        """$f(x, y) = x + y + 10$"""
         return x + y + 10
 
     @staticmethod
     def backward(ctx: Context, d_output: float) -> Tuple[float, float]:
-        "Derivatives are $f'_x(x, y) = 1$ and $f'_y(x, y) = 1$"
+        """Derivatives are $f'_x(x, y) = 1$ and $f'_y(x, y) = 1$"""
         return d_output, d_output
 
 
 class Function2(ScalarFunction):
     @staticmethod
     def forward(ctx: Context, x: float, y: float) -> float:
-        "$f(x, y) = x \times y + x$"
+        """$f(x, y) = x \times y + x$"""
         ctx.save_for_backward(x, y)
         return x * y + x
 
     @staticmethod
     def backward(ctx: Context, d_output: float) -> Tuple[float, float]:
-        "Derivatives are $f'_x(x, y) = y + 1$ and $f'_y(x, y) = x$"
+        """Derivatives are $f'_x(x, y) = y + 1$ and $f'_y(x, y) = x$"""
         x, y = ctx.saved_values
         return d_output * (y + 1), d_output * x
 
@@ -64,7 +64,7 @@ def test_chain_rule2() -> None:
 
 @pytest.mark.task1_3
 def test_chain_rule3() -> None:
-    "Check that constrants are ignored and variables get derivatives."
+    """Check that constrants are ignored and variables get derivatives."""
     constant = 10
     var = minitorch.Scalar(5)
 
