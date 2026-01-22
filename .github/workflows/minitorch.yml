@@ -1,0 +1,45 @@
+name: CI (Module 1)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz
+          python -m pip install --upgrade pip
+          pip install flake8 pytest pep8-naming
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # на всякий случай — установить сам пакет
+          pip install -e .
+
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 --ignore "N801,E203,E266,E501,W503,W504,F812,F401,F841,E741,N803,N802,N806,E128,E302" minitorch/ tests/ project/
+
+      - name: Test with pytest (Module 1)
+        run: |
+          echo "Module 1"
+          pytest tests -q -x -m task1_1
+          pytest tests -q -x -m task1_2
+          pytest tests -q -x -m task1_3
+          pytest tests -q -x -m task1_4
